@@ -22,7 +22,7 @@ class _LoginFormState extends State<LoginForm> {
       final email = _userController.text.trim();
       final password = _passwordController.text.trim();
 
-      final AuthRepository repository = (DevConfig.isDev || DevConfig.forceMock)
+      final AuthRepository repository = DevConfig.forceMock
           ? AuthRepositoryMock()
           : AuthRepositoryAPI();
 

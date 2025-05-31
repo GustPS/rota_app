@@ -24,6 +24,14 @@ class AuthRepositoryMock implements AuthRepository {
           'id': 1,
           'name': 'Motorista Teste',
           'email': email,
+          'type': 'driver',
+        },
+        driver: {
+          'id': 1,
+          'name': 'Motorista Teste',
+          'email': email,
+          'phone': '(11) 99999-9999',
+          'status': true,
         },
       );
     } else {
@@ -41,5 +49,12 @@ class AuthRepositoryMock implements AuthRepository {
     }
 
     // Aqui você poderia simular o sucesso ou falha condicionalmente também
+  }
+
+  @override
+  Future<void> logout() async {
+    await Future.delayed(const Duration(milliseconds: 800));
+    debugPrint('[Mock] Simulando logout');
+    await TokenHelper.clearToken();
   }
 }

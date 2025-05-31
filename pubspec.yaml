@@ -30,7 +30,38 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - .env_dev
+    - .env_prod
     - assets/images/logo_rota.png
+    - lib/
+    - lib/core/
+    - lib/core/routes/
+    - lib/core/routes/data/
+    - lib/core/helpers/
+    - lib/core/network/
+    - lib/shared/
+    - lib/shared/themes/
+    - lib/modules/
+    - lib/modules/auth/
+    - lib/modules/auth/data/
+    - lib/modules/auth/widgets/
+    - lib/modules/auth/presentation/
+    - lib/modules/home/
+    - lib/modules/home/presentation/
+    - lib/modules/anexos/
+    - lib/modules/anexos/data/
+    - lib/modules/anexos/widgets/
+    - lib/modules/anexos/presentation/
+    - lib/modules/routes/
+    - lib/modules/routes/data/
+    - lib/modules/routes/domain/
+    - lib/modules/routes/domain/models/
+    - lib/modules/routes/widgets/
+    - lib/modules/routes/presentation/
+    - lib/modules/routes/presentation/widgets/
+    - lib/modules/settings/
+    - lib/modules/settings/presentation/
+    - lib/modules/navigation/
   fonts:
     - family: Roboto
       fonts:

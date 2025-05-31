@@ -8,14 +8,14 @@ import 'package:rota_app/core/config/dev_config.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-
+  // Carrega o arquivo .env_dev primeiro
   try {
-    await dotenv.load(
-      fileName: DevConfig.isDev ? '.env.dev' : '.env.prod',
-    );
+    await dotenv.load(fileName: '.env_dev');
+    debugPrint('✅ Arquivo .env_dev carregado com sucesso');
+    debugPrint('🌐 API Base URL: ${DevConfig.apiBaseUrl}');
   } catch (e) {
-    // Log claro em caso de erro de carregamento
-    debugPrint('Erro ao carregar o arquivo .env: $e');
+    debugPrint('⚠️ Erro ao carregar o arquivo .env_dev: $e');
+    debugPrint('⚠️ Usando configurações padrão');
   }
 
   runApp(const ProviderScope(child: MyApp()));
@@ -23,7 +23,6 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
 
   @override
   Widget build(BuildContext context) {

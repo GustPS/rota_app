@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:rota_app/modules/auth/data/driver_model.dart';
 
 class TokenHelper {
   static const _tokenKey = 'auth_token';
-  static const _userKey = 'user_name';
+  static const _userKey = 'user_data';
+  static const _driverKey = 'driver_data';
 
   // Salva o token
   static Future<void> saveToken(String token) async {
@@ -17,23 +19,56 @@ class TokenHelper {
     return prefs.getString(_tokenKey);
   }
 
-  // Remove o token e o nome do usuário
+  // Remove o token e os dados do usuário
   static Future<void> clearToken() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_tokenKey);
     await prefs.remove(_userKey);
+    await prefs.remove(_driverKey);
   }
 
-  // Salva o nome do usuário diretamente (caso não venha no JWT)
+  // Salva os dados do usuário
+  static Future<void> saveUserData(Map<String, dynamic> userData) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_userKey, jsonEncode(userData));
+  }
+
+  // Recupera os dados do usuário
+  static Future<Map<String, dynamic>?> getUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final data = prefs.getString(_userKey);
+    if (data != null) {
+      return jsonDecode(data) as Map<String, dynamic>;
+    }
+    return null;
+  }
+
+  // Salva os dados do motorista
+  static Future<void> saveDriverData(DriverModel driver) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_driverKey, jsonEncode(driver.toJson()));
+  }
+
+  // Recupera os dados do motorista
+  static Future<DriverModel?> getDriverData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final data = prefs.getString(_driverKey);
+    if (data != null) {
+      return DriverModel.fromJson(jsonDecode(data));
+    }
+    return null;
+  }
+
+  // Salva o nome do usuário
   static Future<void> saveUserName(String name) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_userKey, name);
+    await prefs.setString('user_name', name);
   }
 
-  // Recupera o nome do usuário salvo localmente
+  // Recupera o nome do usuário
   static Future<String?> getUserName() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_userKey);
+    return prefs.getString('user_name');
   }
 
   // (Opcional) Tenta extrair o nome do usuário diretamente do token JWT, se aplicável
